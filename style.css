@@ -30,5 +30,21 @@ button {
 
 .city-btn {
     padding: 5px;
-    display: inline-block;
+    display: block;
 }
+
+#five-day-weather {
+    display: flex;
+    position: relative;
+}
+
+.display-5-day {
+    background-color: #eff59c;
+    border-radius: 10px;
+    width: 75px;
+    height: 175px;
+    padding: 5px;
+    margin: 10px;
+    text-align: center;
+}
+

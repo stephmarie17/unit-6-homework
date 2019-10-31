@@ -86,17 +86,16 @@ function fiveDayForecast() {
         url: queryURL,
         method: "GET"
     }).then(function(response) {
-        var forecastDiv = $("<div class ='forecast-div'>");
-
-        
-    })
+        console.log(response);
+// DOM manipulation to display search results for five-day forecast
+    });
 }
 
-// DOM manipulation to display search results for five-day forecast
 
 // On click function so that users can click a search history term and see its response
 
 $(document).on("click", ".city-btn", currentWeather);
+$(document).on("click", ".city-btn", fiveDayForecast);
 
 storeSearches();
 
