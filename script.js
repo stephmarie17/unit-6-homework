@@ -72,29 +72,28 @@ function currentWeather() {
 
         weatherMain.append(pThree);
 
+        var lat = response.coord.lat;
+        var lon = response.coord.lon;
+
         // New AJAX call for the UV Index
         function uvIndex() {
-            var lat = response.coord.lat;
-            var lon = response.coord.lon;
-
-            var queryURLUv = "http://api.openweathermap.org/data/2.5/uvi?appid=6a4885bca485162d035533a77b0473df&lat=" + lat + "&lon=" + lon;
+            var queryURL = "http://api.openweathermap.org/data/2.5/uvi?appid=6a4885bca485162d035533a77b0473df&lat=" + lat + "&lon=" + lon;
 
             $.ajax({
-                url: queryURLUv,
+                url: queryURL,
                 method: "GET"
-            }).then(function(response){
+                }).then(function(response){
                 console.log("This is the UV" + response);
-            })
+                })
         }
 
         // DOM manipulation to show UV Index
         uvIndex();
 
         var uv = response.value;
-        var pFour = $("<p>").text("UV Index: " + uv);
+        var pFour = $("<p class='uv-index'>").text("UV Index: " + uv);
 
         weatherMain.append(pFour);
-
 
         $("#current-weather-display").append(weatherMain);
     });
@@ -123,40 +122,38 @@ function fiveDayForecast() {
         var dayOneWeatherDisplay = $("<div>");
 
         var dayOneTemp = dailyTemps[0];
-        var pFive = $("<p>").text("Temp: " + dayOneTemp);
+        var pFive = $("<p>").text("Temp: " + dayOneTemp + "°F");
         dayOneWeatherDisplay.append(pFive);
         $("#day-1").append(dayOneWeatherDisplay);
 
         var dayTwoWeatherDisplay = $("<div>");
 
         var dayTwoTemp = dailyTemps[1];
-        var pSix = $("<p>").text("Temp: " + dayTwoTemp);
+        var pSix = $("<p>").text("Temp: " + dayTwoTemp + "°F");
         dayTwoWeatherDisplay.append(pSix);
         $("#day-2").append(dayTwoWeatherDisplay);
 
         var dayThreeWeatherDisplay = $("<div>");
 
         var dayThreeTemp = dailyTemps[2];
-        var pSeven = $("<p>").text("Temp: " + dayThreeTemp);
+        var pSeven = $("<p>").text("Temp: " + dayThreeTemp + "°F");
         dayThreeWeatherDisplay.append(pSeven);
         $("#day-3").append(dayThreeWeatherDisplay);
 
         var dayFourWeatherDisplay = $("<div>");
 
         var dayFourTemp = dailyTemps[3];
-        var pEight = $("<p>").text("Temp: " + dayFourTemp);
+        var pEight = $("<p>").text("Temp: " + dayFourTemp + "°F");
         dayFourWeatherDisplay.append(pEight);
         $("#day-4").append(dayFourWeatherDisplay);
 
         var dayFiveWeatherDisplay = $("<div>");
 
         var dayFiveTemp = dailyTemps[4];
-        var pNine = $("<p>").text("Temp: " + dayFiveTemp);
+        var pNine = $("<p>").text("Temp: " + dayFiveTemp + "°F");
         dayFiveWeatherDisplay.append(pNine);
         $("#day-5").append(dayFiveWeatherDisplay);
     });
-
-
 }
 
 

@@ -34,6 +34,12 @@ button {
     width: 100%;
 }
 
+.uv-index {
+    background: rgb(238, 79, 79);
+    color: ghostwhite;
+    border-radius: 5px;
+}
+
 #five-day-weather {
     display: flex;
     position: relative;
@@ -47,6 +53,6 @@ button {
     padding: 5px;
     margin: 10px;
     text-align: center;
-    font-size: 0.75rem;
+    font-size: 0.9rem;
 }
 
