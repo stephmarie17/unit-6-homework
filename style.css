@@ -15,7 +15,6 @@ button {
     background-color: #8cc0c7 !important;
     color: ghostwhite !important;
     max-height: 38px;
-
 }
 
 .card {
@@ -30,7 +29,9 @@ button {
 
 .city-btn {
     padding: 5px;
+    margin: 10px;
     display: block;
+    width: 100%;
 }
 
 #five-day-weather {
@@ -46,5 +47,6 @@ button {
     padding: 5px;
     margin: 10px;
     text-align: center;
+    font-size: 0.75rem;
 }
 
