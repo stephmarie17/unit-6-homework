@@ -1,5 +1,7 @@
 // Array to hold search terms
 var cityNames = [];
+// Current day
+let m = moment();
 
 // Function for DOM manipulation to get search term & display search history
 
@@ -13,7 +15,6 @@ function storeSearches() {
         cityBtn.text(cityNames[i]);
         $("#search-history").append(cityBtn);
     }
-
 }
 
 // Function to handle event when search button clicked
@@ -41,61 +42,56 @@ function currentWeather() {
         }).then(function(response) {
         console.log(response);
         var weatherMain = $("<div class='current-weather'>");
+        
+        var date = m.format("MM/DD/YYYY");
+        var h6 = $("<h6>").text(date);
+        weatherMain.append(h6);
 
         var cityTitle = response.name;
         var h5One = $("<h5>").text(cityTitle);
-
         weatherMain.append(h5One);
-
-        // var date = response.timezone;
-        // var h5Two = $("<h5>").text(date);
-
-        // weatherMain.append(h5Two);
         
-        var iconWeather = response.weather.icon;
-        var h5Three = $("<p>").text(iconWeather);
-
-        weatherMain.append(h5Three);
+        var iconValue = response.weather[0].icon;
+        var iconURL = "https://openweathermap.org/img/w/" + iconValue + ".png";
+        var iconImg = $("<img>").attr("src", iconURL);
+        weatherMain.append(iconImg);
 
         var temperature = response.main.temp;
         var pOne = $("<p>").text("Temperature: " + temperature + "°F");
-
         weatherMain.append(pOne);
 
         var humidity = response.main.humidity;
         var pTwo = $("<p>").text("Humidity: " + humidity + "%");
-
         weatherMain.append(pTwo);
 
         var windSpeed = response.wind.speed;
         var pThree = $("<p>").text("Wind Speed: " + windSpeed + " MPH")
-
         weatherMain.append(pThree);
 
         var lat = response.coord.lat;
         var lon = response.coord.lon;
 
+        console.log(lat, lon);
+
         // New AJAX call for the UV Index
         function uvIndex() {
-            var queryURL = "http://api.openweathermap.org/data/2.5/uvi?appid=6a4885bca485162d035533a77b0473df&lat=" + lat + "&lon=" + lon;
+            var queryURL = "http://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + "&appid=6a4885bca485162d035533a77b0473df";
 
             $.ajax({
                 url: queryURL,
                 method: "GET"
                 }).then(function(response){
-                console.log("This is the UV" + response);
+                console.log("This is the UV" + response.value);
+
+                // DOM manipulation to show UV Index
+                var pFour = $("<p class='uv-index'>").text("UV Index: " + response.value);
+
+                weatherMain.append(pFour);
+
+                 $("#current-weather-display").append(weatherMain);
                 })
         }
-
-        // DOM manipulation to show UV Index
         uvIndex();
-
-        var uv = response.value;
-        var pFour = $("<p class='uv-index'>").text("UV Index: " + uv);
-
-        weatherMain.append(pFour);
-
-        $("#current-weather-display").append(weatherMain);
     });
 }
 

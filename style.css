@@ -4,6 +4,10 @@
     box-sizing: border-box;   
 }
 
+body {
+    background-image: url("concrete_seamless/concrete_seamless.png");
+}
+
 #dashboard-header {
     background-color: #8cc0c7;
     color: ghostwhite;
@@ -35,9 +39,7 @@ button {
 }
 
 .uv-index {
-    background: rgb(238, 79, 79);
-    color: ghostwhite;
-    border-radius: 5px;
+    color: #ee4f4f;
 }
 
 #five-day-weather {
@@ -46,7 +48,7 @@ button {
 }
 
 .display-5-day {
-    background-color: #eff59c;
+    background-color: #bebebb;
     border-radius: 10px;
     width: 75px;
     height: 175px;
