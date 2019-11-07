@@ -97,6 +97,8 @@ function currentWeather() {
 
 // AJAX call using search term cityName for five-day forecast
 
+// ISSUES: need to loop one time per day, add humidity and icon for each day, create a loop for DOM manipulation to clean up code
+
 function fiveDayForecast() {
 
     var city = $(this).attr("data-name");

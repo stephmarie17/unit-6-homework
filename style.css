@@ -19,6 +19,13 @@ button {
     background-color: #8cc0c7 !important;
     color: ghostwhite !important;
     max-height: 38px;
+    transition: all 0.3s;
+    outline: none !important;
+}
+
+button:hover {
+    background-color: #a6bfc2 !important;
+    color: #232323;
 }
 
 .card {
