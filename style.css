@@ -5,14 +5,26 @@
 }
 
 body {
-    background-image: url("concrete_seamless/concrete_seamless.png");
+    font-family: "Monserrat", "Avenir";
 }
 
 #dashboard-header {
     background-color: #8cc0c7;
     color: ghostwhite;
     padding: 10px;
-    margin-bottom: 10px;
+    padding-top: 40px;
+    text-transform: uppercase;
+    letter-spacing: 0.25rem;
+    font-weight: lighter;
+}
+
+.selected {
+    background-color: #8cc0c7;
+}
+
+h5 {
+    margin-top: 10px;
+    font-weight: lighter;
 }
 
 button {
@@ -65,3 +77,14 @@ button:hover {
     font-size: 0.9rem;
 }
 
+@media (max-width: 767px) {
+    #current-weather-container {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    #five-day-weather {
+        width: 100%;
+        margin: 0 auto;
+    }
+}

@@ -13,7 +13,10 @@
 
 </head>
 <body>
-<h2 class="text-center display-5" id="dashboard-header">Weather Dashboard</h2>
+<header id="dashboard-header">
+    <h2 class="text-center display-5">Weather Dashboard</h2>
+</header>
+
 <div class="container">
 <!-- Search Bar -->
 <div class="row">
@@ -26,27 +29,28 @@
         <button class="btn btn-outline-secondary" type="button" id="add-city"><i class="fas fa-search"></i></button>
         </div>
     </div>
+
 <!-- Div for current weather display -->    
-    <div class="card col-md-8" style="width:20rem;" id="current-weather-display">
+    <div class="card col-md-8" style="width:20rem;" id="current-weather-container">
         <h5 class="text-center">Current Weather</h5>
+        <div id="current-weather-display"></div>
     </div>
 </div>
 
 <!-- Div for searches to save in -->
 <div class="row">
     <div class="col-md-4" id="search-history">
+</div>
 
-
-    </div>
 <!-- Div for five-day forecast display -->
     <div class="card col-md-8" style="width:20rem;" id="five-day-weather">
         <h5 class="text-center">Five Day Forecast</h5>
         <div class="row">
-            <div class="col-sm display-5-day" id="day-1">Day 1</div>
-            <div class="col-sm display-5-day" id="day-2">Day 2</div>
-            <div class="col-sm display-5-day" id="day-3">Day 3</div>
-            <div class="col-sm display-5-day" id="day-4">Day 4</div>
-            <div class="col-sm display-5-day" id="day-5">Day 5</div>
+            <div class="col-sm display-5-day">Day 1<div id="day-1"></div></div>
+            <div class="col-sm display-5-day">Day 2<div id="day-2"></div></div>
+            <div class="col-sm display-5-day">Day 3<div id="day-3"></div></div>
+            <div class="col-sm display-5-day">Day 4<div id="day-4"></div></div>
+            <div class="col-sm display-5-day">Day 5<div id="day-5"></div></div>
         </div>
     </div>
 

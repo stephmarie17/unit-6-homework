@@ -15,6 +15,8 @@ function storeSearches() {
         cityBtn.text(cityNames[i]);
         $("#search-history").append(cityBtn);
     }
+
+    getWeather(cityNames[cityNames.length -1])
 }
 
 // Function to handle event when search button clicked
@@ -23,24 +25,34 @@ $("#add-city").on("click", function(event) {
     event.preventDefault();
 
     var city = $("#city-input").val();
-
+    if(city){
     // Add city to array of city names
     cityNames.push(city);
+    $("#city-input").val("");
 
     storeSearches();
-})
+    }
+    else {
+        alert('you didnt enter anything')
+    }
+});
+
+function getWeather(city) {
+    if(typeof city === 'object'){
+        city = $(this).attr("data-name");
+    }
+    currentWeather(city);
+    fiveDayForecast(city);
+}
 
 // DOM manipulation to display search result for current weather
-function currentWeather() {
-
-    var city = $(this).attr("data-name");
+function currentWeather(city) {
     var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&APPID=6a4885bca485162d035533a77b0473df";
     // AJAX call using search term cityName for current weather
     $.ajax({
         url: queryURL,
         method: "GET"
         }).then(function(response) {
-        console.log(response);
         var weatherMain = $("<div class='current-weather'>");
         
         var date = m.format("MM/DD/YYYY");
@@ -71,7 +83,6 @@ function currentWeather() {
         var lat = response.coord.lat;
         var lon = response.coord.lon;
 
-        console.log(lat, lon);
 
         // New AJAX call for the UV Index
         function uvIndex() {
@@ -81,27 +92,23 @@ function currentWeather() {
                 url: queryURL,
                 method: "GET"
                 }).then(function(response){
-                console.log("This is the UV" + response.value);
 
                 // DOM manipulation to show UV Index
                 var pFour = $("<p class='uv-index'>").text("UV Index: " + response.value);
 
                 weatherMain.append(pFour);
 
-                 $("#current-weather-display").append(weatherMain);
+                 $("#current-weather-display").html(weatherMain);
                 })
         }
         uvIndex();
     });
 }
 
-// AJAX call using search term cityName for five-day forecast
-
 // ISSUES: need to loop one time per day, add humidity and icon for each day, create a loop for DOM manipulation to clean up code
 
-function fiveDayForecast() {
-
-    var city = $(this).attr("data-name");
+// AJAX call using search term cityName for five-day forecast
+function fiveDayForecast(city) {
     var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + ",us&units=imperial&APPID=6a4885bca485162d035533a77b0473df";
 
     $.ajax({
@@ -110,55 +117,54 @@ function fiveDayForecast() {
     }).then(function(response) {
         console.log(response);
 // DOM manipulation to display search results for five-day forecast
+        var icons = [];
+        for(var i = 0; i < response.list.length; i+=8) {
+            icons.push(response.list[i].weather.icon);
+            console.log(icons);
+        }
+
+        for(var i = 0; i < icons.length; i++) {
+            var icon = "https://openweathermap.org/img/w/" + icons[i] + ".png";
+            var iconDisplay = $("<div>");
+            var iconImg = $("<img>").attr("src", icon);
+            iconDisplay.append(iconImg);
+            $("#day-" + (i + 1).toString()).append(iconDisplay);
+        }
+
         var dailyTemps = [];
-        for(var i = 0; i <= 4; i++){
+        for(var i = 0; i < response.list.length; i+=8){
             console.log(response.list[i].main.temp);
             dailyTemps.push(response.list[i].main.temp);
             console.log(dailyTemps);
         }
+        
+        for (var i =0; i < dailyTemps.length;i++) {
+            var temp = dailyTemps[i];
+            var parent = $("<div>");
+            var child = $("<p>").text("Temp: " + temp + "°F");
+            parent.append(child);
+            $("#day-" + (i + 1).toString()).html(parent);
+        }
 
-        var dayOneWeatherDisplay = $("<div>");
+        var dailyHumidity = [];
+        for(var i = 0; i < response.list.length; i+=8) {
+            console.log(response.list[i].main.humidity);
+            dailyHumidity.push(response.list[i].main.humidity);
+            console.log(dailyHumidity);
+        }
 
-        var dayOneTemp = dailyTemps[0];
-        var pFive = $("<p>").text("Temp: " + dayOneTemp + "°F");
-        dayOneWeatherDisplay.append(pFive);
-        $("#day-1").append(dayOneWeatherDisplay);
+        for (var i =0; i < dailyHumidity.length;i++) {
+            var humidity = dailyHumidity[i];
+            var parent = $("<div>");
+            var child = $("<p>").text("Humidity: " + humidity + "%");
+            parent.append(child);
+            $("#day-" + (i + 1).toString()).append(parent);
+        }
 
-        var dayTwoWeatherDisplay = $("<div>");
-
-        var dayTwoTemp = dailyTemps[1];
-        var pSix = $("<p>").text("Temp: " + dayTwoTemp + "°F");
-        dayTwoWeatherDisplay.append(pSix);
-        $("#day-2").append(dayTwoWeatherDisplay);
-
-        var dayThreeWeatherDisplay = $("<div>");
-
-        var dayThreeTemp = dailyTemps[2];
-        var pSeven = $("<p>").text("Temp: " + dayThreeTemp + "°F");
-        dayThreeWeatherDisplay.append(pSeven);
-        $("#day-3").append(dayThreeWeatherDisplay);
-
-        var dayFourWeatherDisplay = $("<div>");
-
-        var dayFourTemp = dailyTemps[3];
-        var pEight = $("<p>").text("Temp: " + dayFourTemp + "°F");
-        dayFourWeatherDisplay.append(pEight);
-        $("#day-4").append(dayFourWeatherDisplay);
-
-        var dayFiveWeatherDisplay = $("<div>");
-
-        var dayFiveTemp = dailyTemps[4];
-        var pNine = $("<p>").text("Temp: " + dayFiveTemp + "°F");
-        dayFiveWeatherDisplay.append(pNine);
-        $("#day-5").append(dayFiveWeatherDisplay);
     });
 }
 
-
 // On click function so that users can click a search history term and see its response
 
-$(document).on("click", ".city-btn", currentWeather);
-$(document).on("click", ".city-btn", fiveDayForecast);
-
-storeSearches();
+$(document).on("click", ".city-btn", getWeather);
 
