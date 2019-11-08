@@ -77,6 +77,13 @@ button:hover {
     font-size: 0.9rem;
 }
 
+@media (max-width: 991px) {
+    .display-5-day {
+        width: 200px;
+        height: 300px;
+    }
+}
+
 @media (max-width: 767px) {
     #current-weather-container {
         width: 100%;
@@ -86,5 +93,12 @@ button:hover {
     #five-day-weather {
         width: 100%;
         margin: 0 auto;
+    }
+}
+
+
+@media (max-width: 575px) {
+    .display-5-day {
+        margin: 5px auto;
     }
 }

@@ -33,7 +33,11 @@ $("#add-city").on("click", function(event) {
     storeSearches();
     }
     else {
-        alert('you didnt enter anything')
+        // alert('Please enter a city')
+        var alert = $("<p>");
+        alert.text("Please enter a city.");
+        $("#search-history").append(alert);
+
     }
 });
 
@@ -115,27 +119,10 @@ function fiveDayForecast(city) {
         url: queryURL,
         method: "GET"
     }).then(function(response) {
-        console.log(response);
 // DOM manipulation to display search results for five-day forecast
-        var icons = [];
-        for(var i = 0; i < response.list.length; i+=8) {
-            icons.push(response.list[i].weather.icon);
-            console.log(icons);
-        }
-
-        for(var i = 0; i < icons.length; i++) {
-            var icon = "https://openweathermap.org/img/w/" + icons[i] + ".png";
-            var iconDisplay = $("<div>");
-            var iconImg = $("<img>").attr("src", icon);
-            iconDisplay.append(iconImg);
-            $("#day-" + (i + 1).toString()).append(iconDisplay);
-        }
-
         var dailyTemps = [];
         for(var i = 0; i < response.list.length; i+=8){
-            console.log(response.list[i].main.temp);
             dailyTemps.push(response.list[i].main.temp);
-            console.log(dailyTemps);
         }
         
         for (var i =0; i < dailyTemps.length;i++) {
@@ -148,9 +135,7 @@ function fiveDayForecast(city) {
 
         var dailyHumidity = [];
         for(var i = 0; i < response.list.length; i+=8) {
-            console.log(response.list[i].main.humidity);
             dailyHumidity.push(response.list[i].main.humidity);
-            console.log(dailyHumidity);
         }
 
         for (var i =0; i < dailyHumidity.length;i++) {
@@ -161,7 +146,39 @@ function fiveDayForecast(city) {
             $("#day-" + (i + 1).toString()).append(parent);
         }
 
+        var icons = [];
+        for(var i = 0; i < response.list.length; i+=8) {
+            icons.push(response.list[i].weather[0].icon);
+        }
+
+        for(var i = 0; i < icons.length; i++) {
+            var icon = "https://openweathermap.org/img/w/" + icons[i] + ".png";
+            var iconDisplay = $("<div>");
+            var iconImg = $("<img>").attr("src", icon);
+            iconDisplay.append(iconImg);
+            $("#day-" + (i + 1)).append(iconImg);
+        }
+        function displayDates() {
+            var fiveDays = [];
+            var date = moment().format("MM/DD/YYYY");
+            var date1 = moment().add(1,'d').format("MM/DD/YYYY");
+            var date2 = moment().add(2,'d').format("MM/DD/YYYY");
+            var date3 = moment().add(3,'d').format("MM/DD/YYYY");
+            var date4 = moment().add(4,'d').format("MM/DD/YYYY");
+        
+            fiveDays.push(date, date1, date2, date3, date4);
+            
+            for(var i = 0; i < fiveDays.length; i++) {
+                var eachDate = fiveDays[i];
+                var dateDisplay = $("<div>");
+                var eachDateDisplay = $("<p>").text(eachDate);
+                dateDisplay.append(eachDateDisplay);
+                $("#day-" + (i + 1)).append(eachDateDisplay);
+            }
+        }
+        displayDates();
     });
+
 }
 
 // On click function so that users can click a search history term and see its response
