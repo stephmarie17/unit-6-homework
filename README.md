@@ -17,11 +17,9 @@ Note: due to the nature of the OpenWeather API, if you are using the https every
 ## Usage
 Enter the name of the city for which you would like to see data. This is not case sensitive, but the API will not know how to read a city name that is entered incorrectly. If you click search without entering a city name, you will be prompted to enter one. You can toggle through past searches by clicking on the city name buttons.
 
-![Search for a City]
-(https://i.gyazo.com/d0332a9ee09b32c323c870ff3f19c05a.gif)
+![Search for a City](https://i.gyazo.com/d0332a9ee09b32c323c870ff3f19c05a.gif)
 
-![Prompt to enter City Name]
-(https://i.gyazo.com/2808b279f6c0fdbe00fe3fb95b4e97d7.gif)
+![Prompt to enter City Name](https://i.gyazo.com/2808b279f6c0fdbe00fe3fb95b4e97d7.gif)
 
 ## Reference
 To view the OpenWeather API Documention, go to their site:
